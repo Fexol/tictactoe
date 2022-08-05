@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Sqare = ({ value }) => {
-  return <button type="button">{value}</button>;
+  return (
+    <button type="button" className="square">
+      {value}
+    </button>
+  );
 };
 
 export default Sqare;
