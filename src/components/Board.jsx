@@ -1,23 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sqare from './Sqare';
 
 const Board = () => {
+  const [board, setBoard] = useState(Array(9).fill(null));
+  const [isXNext, setIsXNext] = useState(false);
+
+  const handleSquareClick = position => {
+    if (board[position]) return;
+
+    setBoard(prev => {
+      return prev.map((sqare, pos) => {
+        if (pos === position) {
+          return isXNext ? 'X' : '0';
+        }
+
+        return sqare;
+      });
+    });
+
+    setIsXNext(prev => !prev);
+  };
+
+  const renderSquare = position => {
+    return (
+      <Sqare
+        value={board[position]}
+        onClick={() => handleSquareClick(position)}
+      />
+    );
+  };
+
   return (
     <div className="board">
       <div className="board-row">
-        <Sqare value={0} />
-        <Sqare value={1} />
-        <Sqare value={2} />
+        {renderSquare(0)}
+        {renderSquare(1)}
+        {renderSquare(2)}
       </div>
       <div className="board-row">
-        <Sqare value={3} />
-        <Sqare value={4} />
-        <Sqare value={5} />
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
       </div>
       <div className="board-row">
-        <Sqare value={6} />
-        <Sqare value={7} />
-        <Sqare value={8} />
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
       </div>
     </div>
   );
